@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('item_facturas', function (Blueprint $table) {
+        Schema::create('unidad_articulos', function (Blueprint $table) {
             $table->id();
-            $table->integer('cantidad');
             $table->unsignedBigInteger('articulo_id');
-            $table->unsignedBigInteger('factura_id');
+            $table->text('codigo_barra')->unique();
+            $table->text('codigo_qr')->unique();
+            $table->enum('estado',['disponible',"en uso","dañado"]);
             $table->timestamps();
             $table->foreign('articulo_id')->references('id')->on('articulos')->onDelete('cascade');
-            $table->foreign('factura_id')->references('id')->on('facturas')->onDelete('cascade');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('item_facturas');
+        Schema::dropIfExists('unidad_articulos');
     }
 };

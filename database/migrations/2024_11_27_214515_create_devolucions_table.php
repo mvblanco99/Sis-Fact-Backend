@@ -16,8 +16,8 @@ return new class extends Migration
             $table->text('motivo');
             $table->datetime('fecha');
             $table->string('devolutante',250);
-            $table->unsignedBigInteger('id_articulo');
-            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('articulo_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->foreign('articulo_id')->references('id')->on('articulos')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

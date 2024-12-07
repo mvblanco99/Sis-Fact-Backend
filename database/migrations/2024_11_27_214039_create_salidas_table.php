@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('destinatario',250);
             $table->datetime('fecha');
             $table->text('motivo');
-            $table->unsignedBigInteger('id_articulo');
-            $table->unsignedBigInteger('id_user');
-            $table->unsignedBigInteger('id_departamento');
+            $table->unsignedBigInteger('articulo_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('departamento_id');
             $table->timestamps();
             $table->foreign('articulo_id')->references('id')->on('articulos')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

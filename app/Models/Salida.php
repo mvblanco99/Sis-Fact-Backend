@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Salida extends Model
 {
     use HasFactory;
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'cantidad',
+        'destinatario',
+        'fecha',
+        'motivo',
+        'departamento_id',
+        'user_id',
+        'articulos_id'
+    ];
 }

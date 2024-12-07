@@ -15,7 +15,6 @@ class Articulo extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'articulos',
         'descripcion',
         'categoria_id',
     ];
