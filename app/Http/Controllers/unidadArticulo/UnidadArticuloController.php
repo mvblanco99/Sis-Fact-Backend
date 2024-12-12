@@ -4,26 +4,32 @@ namespace App\Http\Controllers\unidadArticulo;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\unidadArticulo\UnidadArticuloRequest;
+use App\Http\Requests\unidadArticulo\UpdateUnidadArticuloRequest;
+use App\Models\Articulo;
 use App\Models\UnidadArticulo;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Milon\Barcode\Facades\DNS1DFacade;
+use Milon\Barcode\Facades\DNS2DFacade;
 
 class UnidadArticuloController extends Controller
 {
-    
     public function store(UnidadArticuloRequest $request){
         //Validamos los parametros
         $request->validated();
 
-        
+        $articulo = Articulo::find($request->articulo_id);
+
+        //Generamos el codigo qr para esta unidad
         try {
-            //Creamos el articulo
-            $articulo = UnidadArticulo::create([
-                'articulo_id' => $request->articulo_id,
-                'codigo_barra' => $request->codigo_barra,
+            
+            //Creamos la unidad
+            $unidad = UnidadArticulo::create([
+                "articulo_id" => $articulo->id,
+                "estado" => "disponible" 
             ]);
 
-            return response()->json(['message' => 'Unidad de Articulo creada exitosamente.', 'articulo' => $articulo], 201);
+            return response()->json(['message' => 'Unidad de Articulo creada exitosamente.', 'articulo' => $unidad], 201);
 
         }catch (QueryException $e) {
             // Manejar errores de consulta
@@ -34,48 +40,40 @@ class UnidadArticuloController extends Controller
         }
     }
 
-    // public function update(ArticuloRequest $request, int $id){
-    //     $request->validated();
+    public function update(UpdateUnidadArticuloRequest $request, int $id){
+        $request->validated();
 
-    //     //Buscamos el articulo
-    //     $articulo = Articulo::find($id);
+        //Buscamos el articulo
+        $articulo = UnidadArticulo::find($id);
 
+        //Verificamos que el articulo exista
+        if($articulo){
 
-    //     //Verificamos que el articulo exista
-    //     if($articulo){
+            try {
+                //Actualizamos el articulo
+                $articulo->estado = $request->estado;
+                $articulo->save();
 
-    //         //Verificamos que la descripcion del articulo a modificar no este siendo usada
-    //         $exist_descripcion_articulo = Articulo::where('descripcion', $request->descripcion)->first();
-    //         if($exist_descripcion_articulo){
-    //             return response()->json(['message' => 'Articulo ya existe.'], 409);
-    //         }
+                $articuloUpdated = UnidadArticulo::find($id);
 
-    //         try {
-    //             //Actualizamos el articulo
-    //             $articulo->descripcion = $request->descripcion;
-    //             $articulo->categoria_id = $request->categoria_id;
-    //             $articulo->save();
+                //Retornamos el articulo actualizado
+                return response()->json([
+                    'message' => 'Unidad de Articulo actualizado exitosamente.',
+                    'articulo' => $articuloUpdated
+                ],200);
 
-    //             $articuloUpdated = Articulo::find($id);
+            } catch (QueryException $e) {
+                // Manejar errores de consulta
+                return response()->json(['error' => 'Error al actualizar la unidad de articulo: ' . $e->getMessage()], 500);
+            } catch (\Exception $e) {
+                // Manejar otros errores
+                return response()->json(['error' => 'Ocurrió un error inesperado: ' . $e->getMessage()], 500);
+            }
 
-    //             //Retornamos el articulo actualizado
-    //             return response()->json([
-    //                 'message' => 'Articulo actualizado exitosamente.',
-    //                 'articulo' => $articuloUpdated
-    //             ],200);
-
-    //         } catch (QueryException $e) {
-    //             // Manejar errores de consulta
-    //             return response()->json(['error' => 'Error al actualizar el articulo: ' . $e->getMessage()], 500);
-    //         } catch (\Exception $e) {
-    //             // Manejar otros errores
-    //             return response()->json(['error' => 'Ocurrió un error inesperado: ' . $e->getMessage()], 500);
-    //         }
-
-    //     }else{
-    //         return response()->json(['message' => 'Articulo no existe.'], 404);
-    //     }
-    // }
+        }else{
+            return response()->json(['message' => 'Articulo no existe.'], 404);
+        }
+    }
 
     public function delete(int $id){
         $unidad_articulo = UnidadArticulo::find($id);

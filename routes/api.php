@@ -3,6 +3,7 @@
 use App\Http\Controllers\articulo\ArticuloController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\categoria\CategoriaController;
+use App\Http\Controllers\factura\FacturaController;
 use App\Http\Controllers\unidadArticulo\UnidadArticuloController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,12 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('unidad_articulo/store',[UnidadArticuloController::class,'store']);
     Route::put('unidad_articulo/{id}',[UnidadArticuloController::class,'update'] );
     Route::delete('unidad_articulo/{id}',[UnidadArticuloController::class,'delete'] );
+
+    //Factura
+    Route::get('factura', [FacturaController::class,'view']);
+    Route::post('factura/store',[FacturaController::class,'store']);
+    Route::put('factura/{id}',[FacturaController::class,'update'] );
+    Route::delete('factura/{id}',[FacturaController::class,'delete']);
 
 
 });

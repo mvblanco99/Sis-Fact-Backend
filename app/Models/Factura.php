@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Factura extends Model
 {
     use HasFactory;
+
+    public const PROCESADA = 1;
+    public const NOPROCESADA  = 2;
     
     /**
      * The attributes that are mass assignable.

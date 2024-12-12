@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('unidad_articulos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('articulo_id');
-            $table->text('codigo_barra')->unique();
-            $table->text('codigo_qr')->unique();
+            $table->text('codigo_barra')->unique()->nullable();
+            $table->text('codigo_qr')->unique()->nullable();
             $table->enum('estado',['disponible',"en uso","dañado"]);
             $table->timestamps();
             $table->foreign('articulo_id')->references('id')->on('articulos')->onDelete('cascade');
