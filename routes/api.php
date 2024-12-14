@@ -27,6 +27,7 @@ Route::prefix('auth')->group(function () {
     Route::post('/login',[AuthController::class,'login']);
 });
 
+
 //Rutas protegidas
 Route::middleware('auth:sanctum')->group(function(){
     

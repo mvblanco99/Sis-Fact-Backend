@@ -23,6 +23,7 @@ class Factura extends Model
         'fec_vcto',
         'empresa',
         'total_factura',
-        'user_id'
+        'user_id',
+        'procesada'
     ];
 }

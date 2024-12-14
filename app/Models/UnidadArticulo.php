@@ -15,6 +15,8 @@ class UnidadArticulo extends Model
      */
     protected $fillable = [
         'articulo_id',
-        'estado'
+        'estado',
+        'factura_id',
+        'codigo_barra'
     ];
 }

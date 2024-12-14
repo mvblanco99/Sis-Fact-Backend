@@ -15,11 +15,13 @@ class FacturaServices{
             'fec_vcto' => $request->fec_vcto,
             'empresa' => $request->empresa,
             'total_factura' => $request->total_factura,
-            'user_id' => $request->user_id
+            'user_id' => $request->user_id,
+            'procesada' => Factura::NOPROCESADA
         ]);
         
 
         $items = [];
+        
         //Creamos los items de la factura
         foreach ($request->items_factura as $item) {
             $i = ItemFactura::create([

@@ -15,7 +15,7 @@ trait ExecuteQuery {
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function executeQuery(callable $func, string $nameTable="", $request):\Illuminate\Http\JsonResponse{
+    public function executeQuery(callable $func, string $nameTable="", $request = null):\Illuminate\Http\JsonResponse{
 
         try {
             //ejecutamos la funcion
@@ -43,7 +43,7 @@ trait ExecuteQuery {
      * @return \Illuminate\Http\JsonResponse
      */
 
-     public function executeQueryTransaction(callable $func, string $nameTable="", $request):\Illuminate\Http\JsonResponse{
+     public function executeQueryTransaction(callable $func, string $nameTable="", $request = null):\Illuminate\Http\JsonResponse{
 
         // Empezar una transacción
         DB::beginTransaction();
