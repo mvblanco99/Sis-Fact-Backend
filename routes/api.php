@@ -3,7 +3,9 @@
 use App\Http\Controllers\articulo\ArticuloController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\categoria\CategoriaController;
+use App\Http\Controllers\departamento\DepartamentoController;
 use App\Http\Controllers\factura\FacturaController;
+use App\Http\Controllers\salidas\SalidasController;
 use App\Http\Controllers\unidadArticulo\UnidadArticuloController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +28,6 @@ Route::prefix('auth')->group(function () {
     //Login de usuarios
     Route::post('/login',[AuthController::class,'login']);
 });
-
 
 //Rutas protegidas
 Route::middleware('auth:sanctum')->group(function(){
@@ -58,5 +59,16 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::put('factura/{id}',[FacturaController::class,'update'] );
     Route::delete('factura/{id}',[FacturaController::class,'delete']);
 
+    //Departamentos
+    Route::get('departamento', [DepartamentoController::class,'view']);
+    Route::post('departamento/store',[DepartamentoController::class,'store']);
+    Route::put('departamento/{id}',[DepartamentoController::class,'update'] );
+    Route::delete('departamento/{id}',[DepartamentoController::class,'delete']);
+
+    //Salidas
+    Route::get('salidas', [SalidasController::class,'view']);
+    Route::post('salidas/store',[SalidasController::class,'store']);
+    Route::put('salidas/{id}',[SalidasController::class,'update'] );
+    Route::delete('salidas/{id}',[SalidasController::class,'delete']);
 
 });

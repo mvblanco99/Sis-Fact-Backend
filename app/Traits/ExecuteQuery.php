@@ -15,7 +15,7 @@ trait ExecuteQuery {
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function executeQuery(callable $func, string $nameTable="", $request = null):\Illuminate\Http\JsonResponse{
+    public function executeQuery(callable $func, string $nameTable="", mixed $request = null):\Illuminate\Http\JsonResponse{
 
         try {
             //ejecutamos la funcion
