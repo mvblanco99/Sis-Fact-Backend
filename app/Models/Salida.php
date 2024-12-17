@@ -20,6 +20,6 @@ class Salida extends Model
         'motivo',
         'departamento_id',
         'user_id',
-        'articulos_id'
+        'unidad_articulo_id'
     ];
 }

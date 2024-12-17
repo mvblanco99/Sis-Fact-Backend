@@ -19,7 +19,6 @@ return new class extends Migration
             $table->text('empresa');
             $table->decimal('total_factura');
             $table->unsignedBigInteger('user_id');
-            $table->enum('procesada',[1,2])->comment("1 => PROCESADA, 2=> NO PROCESADA");
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

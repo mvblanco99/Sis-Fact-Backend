@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'username',
         'password',
+        'departamento_id'
     ];
 
     /**
@@ -42,3 +43,5 @@ class User extends Authenticatable
         
     ];
 }
+
+

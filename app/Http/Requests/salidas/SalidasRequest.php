@@ -24,11 +24,10 @@ class SalidasRequest extends FormRequest
         return [
             'cantidad' => 'required|integer',
             'destinatario' => 'required',
-            'fecha' => 'required',
             'motivo' => 'required',
             'departamento' => 'required|integer',
             'user' => 'required|integer',
-            'articulo_id' => 'required|interger'
+            'articulo_id' => 'required|integer'
         ];
     }
 }
