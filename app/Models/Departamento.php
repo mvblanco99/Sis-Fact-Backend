@@ -16,4 +16,10 @@ class Departamento extends Model
     protected $fillable = [
         'descripcion',
     ];
+
+    //Relacion de uno a muchos con users
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

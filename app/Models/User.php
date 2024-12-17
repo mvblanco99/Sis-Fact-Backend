@@ -42,6 +42,11 @@ class User extends Authenticatable
     protected $casts = [
         
     ];
+
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class);
+    }
 }
 
 

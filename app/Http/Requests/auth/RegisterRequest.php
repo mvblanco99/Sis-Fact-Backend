@@ -24,7 +24,8 @@ class RegisterRequest extends FormRequest
         return [
             'username' => 'required|min:5|regex:/^[a-zA-Z0-9 ]+$/',
             'password' => 'required|min:8|regex:/^[a-zA-Z0-9 ]+$/', 
-            'name' => 'required|min:5'
+            'name' => 'required|min:5',
+            'departamento' => 'required|integer'
         ];
     }
 

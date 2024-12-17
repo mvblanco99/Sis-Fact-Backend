@@ -25,12 +25,6 @@ class SalidasController extends Controller
         //Recuperamos el usuario logueado
         $user = Auth::user();
 
-        /**
-         * Falta manejar el cambio de estado de las unidades que se encuentran en uso, en caso de que el destinatario 
-         * tenga una unidad en uso. En caso contrario, sencillamente creamos la salida y asignamos la nueva unidad 
-         * al destinatario 
-         */
-
         //Verificamos que el articulo esta disponible
         $unidad = UnidadArticulo::where('articulo_id', $request->articulo_id,)
             ->where('estado','disponible')
@@ -39,10 +33,28 @@ class SalidasController extends Controller
 
         if($unidad){
 
+
+            /**
+             * Falta manejar el cambio de estado de las unidades que se encuentran en uso, en caso de que el destinatario 
+             * tenga una unidad en uso. En caso contrario, sencillamente creamos la salida y asignamos la nueva unidad 
+             * al destinatario 
+            */
+
             //Ejecutamos la query dentro de una transaccion
             $response = $this->executeQueryTransaction(function($params){
+
+                //Comprobamos si el destinatario ya tiene asignado un art en uso igual al que se quiere asignar
+                if($params['request']->code_art_en_uso){  
+                    //En caso de tenerlo, se asigna un nuevo estado a dicho articulo (dañado, disponible, perdido)
+                    $art_en_uso = UnidadArticulo::find($params['request']->code_art_en_uso);
+
+                    if($art_en_uso){
+                        $art_en_uso->estado = $params['request']->nuevo_estado_art;
+                        $art_en_uso->save();
+                    }
+                }
                     
-                //Creamos la salida
+                //Creamos la salida y asignamos el nuevo art
                 $salida = Salida::create([
                     'cantidad' => $params['request']->cantidad,
                     'destinatario' => $params['request']->destinatario,

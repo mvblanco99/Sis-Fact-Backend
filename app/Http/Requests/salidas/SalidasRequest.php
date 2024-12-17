@@ -27,7 +27,9 @@ class SalidasRequest extends FormRequest
             'motivo' => 'required',
             'departamento' => 'required|integer',
             'user' => 'required|integer',
-            'articulo_id' => 'required|integer'
+            'articulo_id' => 'required|integer',
+            'nuevo_estado_art' => '',
+            'code_art_en_uso' => ''
         ];
     }
 }

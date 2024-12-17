@@ -4,6 +4,7 @@ namespace App\Http\Controllers\departamento;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\departamento\DepartamentoRequest;
+use App\Http\Resources\DepartamentoResource;
 use App\Models\Departamento;
 use App\Traits\ExecuteQuery;
 
@@ -13,7 +14,7 @@ class DepartamentoController extends Controller
     
     public function view(){
         $departamentos = Departamento::all();
-        return response()->json(['departamentos' => $departamentos],200);
+        return response()->json(['departamentos' => DepartamentoResource::collection($departamentos)],200);
     }
 
     public function store(DepartamentoRequest $request){

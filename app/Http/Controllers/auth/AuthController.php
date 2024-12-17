@@ -5,9 +5,9 @@ namespace App\Http\Controllers\auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\auth\RegisterRequest;
 use App\Http\Requests\auth\LoginRequest;
+use App\Models\Departamento;
 use App\Models\User;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -24,6 +24,16 @@ class AuthController extends Controller
 
         //Recuperamos el user
         $user = User::where('username', $request->username)->first();
+
+        //Recuperamos el id del departamento de sistemas
+        $dep = Departamento::where('descripcion','Sistemas')->first();
+        
+        //Esto lo puedo cambiar por una policy
+        if($user->departamento_id !== $dep->id){
+            return response()->json([
+                'message' => 'No tiene privilegios para ingresar al sistema.'
+            ],403);
+        }
 
         //Enviamos en la respuesta el usuario logeado y los datos del usuario 
         return response()->json([
@@ -52,6 +62,7 @@ class AuthController extends Controller
                 'name' => $request->name,
                 'username' => $request->username,
                 'password' => bcrypt($request->password),
+                'departamento_id' => $request->departamento,
             ]);
 
             return response()->json(['message' => 'Usuario creado exitosamente.', 'user' => $user], 201);
