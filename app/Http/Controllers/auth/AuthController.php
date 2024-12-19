@@ -8,10 +8,12 @@ use App\Http\Requests\auth\LoginRequest;
 use App\Models\Departamento;
 use App\Models\User;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+
     public function login(LoginRequest $request){
         $request->validated();
 
@@ -44,7 +46,7 @@ class AuthController extends Controller
 
     }
 
-    public function register(RegisterRequest $request){ 
+    public function store(RegisterRequest $request){ 
         //Validamos los datos
         $request->validated();
 
@@ -83,4 +85,6 @@ class AuthController extends Controller
         //Retonamos la respuesta
         return response()->json([], 204);
     }
+
+    
 }

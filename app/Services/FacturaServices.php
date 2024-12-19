@@ -4,10 +4,15 @@ namespace App\Services;
 
 use App\Models\Factura;
 use App\Models\ItemFactura;
+use Illuminate\Support\Facades\Auth;
 
 class FacturaServices{
 
     public function crearFactura($request) {
+
+        //Recuperar el usuario logueado
+        $user = Auth::user();
+
         //Creamos la factura
         $fact = Factura::create([
             'nota_entrega' => $request->nota_entrega,
@@ -15,7 +20,7 @@ class FacturaServices{
             'fec_vcto' => $request->fec_vcto,
             'empresa' => $request->empresa,
             'total_factura' => $request->total_factura,
-            'user_id' => $request->user_id,
+            'user_id' => $user->id,
             'procesada' => Factura::NOPROCESADA
         ]);
         

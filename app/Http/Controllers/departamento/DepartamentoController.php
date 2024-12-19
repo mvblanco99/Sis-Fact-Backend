@@ -7,6 +7,8 @@ use App\Http\Requests\departamento\DepartamentoRequest;
 use App\Http\Resources\DepartamentoResource;
 use App\Models\Departamento;
 use App\Traits\ExecuteQuery;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class DepartamentoController extends Controller
 {
@@ -15,6 +17,15 @@ class DepartamentoController extends Controller
     public function view(){
         $departamentos = Departamento::all();
         return response()->json(['departamentos' => DepartamentoResource::collection($departamentos)],200);
+    }
+
+    public function viewADepartamento(int $id){
+        $departamento = Departamento::find($id);
+        if($departamento){
+            return response()->json(['departamento' => new DepartamentoResource($departamento)],200);
+        }
+
+        return response()->json(['error' => 'Departamento no encontrado'], Response::HTTP_NOT_FOUND);
     }
 
     public function store(DepartamentoRequest $request){
@@ -44,9 +55,9 @@ class DepartamentoController extends Controller
         return $response;
     }
 
-    public function update(DepartamentoRequest $request, int $id){
-        $request->validated();
-
+    public function update(Request $request, int $id){
+        //$request->validated();
+        return response()->json(['message' => $request->descripcion], 200);
         //Buscamos el departamento
         $departamento = Departamento::find($id);
 

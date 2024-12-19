@@ -37,7 +37,8 @@ Route::middleware('auth:sanctum')->group(function(){
     //Users
     Route::get('users', [UserController::class,'view']);
     Route::get('users/{id}', [UserController::class,'viewAUser']);
-    Route::post('users/store', [AuthController::class,'register']);
+    Route::post('users/store', [AuthController::class,'store']);
+    Route::delete('users/{id}', [UserController::class,'delete']);
 
     //Categorias
     Route::get('categoria', [CategoriaController::class,'view']);
@@ -67,6 +68,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('departamento', [DepartamentoController::class,'view']);
     Route::post('departamento/store', [DepartamentoController::class,'store']);
     Route::put('departamento/{id}', [DepartamentoController::class,'update']);
+    Route::get('departamento/{id}', [DepartamentoController::class,'viewADepartamento']);
     Route::delete('departamento/{id}', [DepartamentoController::class,'delete']);
 
     //Salidas
