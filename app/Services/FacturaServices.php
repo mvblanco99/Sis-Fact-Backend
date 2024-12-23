@@ -23,8 +23,8 @@ class FacturaServices{
             'user_id' => $user->id,
             'procesada' => Factura::NOPROCESADA
         ]);
-        
 
+        
         $items = [];
         
         //Creamos los items de la factura
@@ -37,7 +37,7 @@ class FacturaServices{
             array_push($items, $i);
         }
     
-        return ["fact" => $fact, "items" => $items];
+        return ["fact" => $fact, "items" => $items];  
     }
 }
 

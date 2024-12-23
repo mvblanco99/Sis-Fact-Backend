@@ -22,4 +22,5 @@ class Departamento extends Model
     {
         return $this->hasMany(User::class);
     }
+
 }

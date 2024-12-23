@@ -27,6 +27,9 @@ class FacturaRequest extends FormRequest
             "fec_vcto" => "required",
             "empresa" => "required",
             "total_factura" => "required",
+            "tipo" => "required",
+            "items_recarga" => "nullable|array", // Permite que items_recarga sea nulo o un array
+            "items_recarga.*.codigo_barra" => "required_if:items_recarga,!=,null", // Obligatorio si items_recarga no es nulo
             "items_factura" => "required|array|min:1", // Asegura que sea un array y tenga al menos un elemento
             "items_factura.*.articulo_id" => "required|integer", // Valida que cada item tenga articulo_id como entero
             "items_factura.*.cantidad" => "required|integer", // Valida que cada item tenga cantidad como entero

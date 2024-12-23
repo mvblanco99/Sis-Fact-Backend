@@ -11,6 +11,8 @@ class Factura extends Model
 
     public const PROCESADA = 1;
     public const NOPROCESADA  = 2;
+    public const RECARGA = 2;
+    public const UNICA = 1;
     
     /**
      * The attributes that are mass assignable.
@@ -26,4 +28,9 @@ class Factura extends Model
         'user_id',
         'procesada'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

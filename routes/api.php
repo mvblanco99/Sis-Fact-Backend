@@ -53,7 +53,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::delete('articulo/{id}', [ArticuloController::class,'delete']);
     
     //Unidad Articulos
-    Route::get('unidad_articulo', [UnidadArticuloController::class,'view']);
+    Route::get('unidad_articulo/{codigo_barra}', [UnidadArticuloController::class,'view']);
     Route::post('unidad_articulo/store', [UnidadArticuloController::class,'store']);
     Route::put('unidad_articulo/{id}', [UnidadArticuloController::class,'update']);
     Route::delete('unidad_articulo/{id}', [UnidadArticuloController::class,'delete']);

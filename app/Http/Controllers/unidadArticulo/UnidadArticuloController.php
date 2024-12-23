@@ -14,6 +14,12 @@ use Milon\Barcode\Facades\DNS2DFacade;
 
 class UnidadArticuloController extends Controller
 {
+    public function view(string $cod_barra){
+        $unidad = UnidadArticulo::where('codigo_barra', $cod_barra)->with('articulo')->first();
+        return response()->json(['unidad' => $unidad ? $unidad : []], 200);
+    }
+
+
     public function store(UnidadArticuloRequest $request){
         //Validamos los parametros
         $request->validated();

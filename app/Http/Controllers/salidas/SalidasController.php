@@ -22,6 +22,7 @@ class SalidasController extends Controller
         //Validamos los parametros
         $request->validated();
 
+        //return response()->json($request,200);
         //Recuperamos el usuario logueado
         $user = Auth::user();
 
@@ -57,7 +58,7 @@ class SalidasController extends Controller
                 //Creamos la salida y asignamos el nuevo art
                 $salida = Salida::create([
                     'cantidad' => $params['request']->cantidad,
-                    'destinatario' => $params['request']->destinatario,
+                    'destinatario_id' => $params['request']->destinatario,
                     'motivo' => $params['request']->motivo,
                     'departamento_id' => $params['request']->departamento,
                     'user_id' => $params['user_logueado']->id,

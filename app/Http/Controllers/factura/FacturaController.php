@@ -4,7 +4,9 @@ namespace App\Http\Controllers\factura;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FacturaRequest;
+use App\Http\Resources\FacturaResource;
 use App\Models\Factura;
+use App\Models\UnidadArticulo;
 use App\Traits\ExecuteQuery;
 use App\Services\FacturaServices;
 use App\Services\UnidadArticuloServices;
@@ -22,7 +24,7 @@ class FacturaController extends Controller
    
     public function view(){
         $facturas = Factura::all();
-        return response()->json(['facturas' => $facturas], 200);
+        return response()->json(['facturas' => FacturaResource::collection($facturas)], 200);
     }
 
     public function store(FacturaRequest $request){ 
@@ -38,9 +40,17 @@ class FacturaController extends Controller
                
                 //Creamos la factura y los items de la factura
                 $responseService = $this->facturaService->crearFactura($request);
+
+             
                 
-                //Creamos las unidades de los articulos
-                $responseArticulosService = $this->unidadArticulosService->store($responseService['items']);
+                $responseArticulosService = $request->tipo === Factura::RECARGA 
+                    ?
+                        //Actualizamos el estatus de las unidades existentes
+                        $this->unidadArticulosService->updatedStatus($request->items_recarga)
+                    :
+                        //Creamos las unidades de los articulos
+                        $this->unidadArticulosService->store($responseService['items']);
+
                 
                 //Actualizamos el status de procesado de la factura
                 $responseService['fact']->procesada = 1;

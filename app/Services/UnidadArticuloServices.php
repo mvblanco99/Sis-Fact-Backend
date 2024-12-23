@@ -27,9 +27,8 @@ class UnidadArticuloServices{
     public function store($items){
 
         $unidad_articulos = [];
-
+           
         foreach($items as $item){
-            
             for ($i=0; $i < $item->cantidad ; $i++) {     
                 //Creamos la unidad
                 $codeBar = $this->createCodeBar();
@@ -44,6 +43,24 @@ class UnidadArticuloServices{
                 array_push($unidad_articulos,$unidad);
             }
         }
+
+        return $unidad_articulos;
+    }
+
+    public function updatedStatus($items){
+        $unidad_articulos = [];
+
+        //Actualizamos el estatus de las unidades existentes
+        foreach($items as $item){
+               
+            $art = UnidadArticulo::where('codigo_barra',$item['codigo_barra'])->first();
+            $art->estado = "disponible";
+            $art->save();
+
+            $unidadUpdated = UnidadArticulo::where('codigo_barra',$item['codigo_barra'])->first();
+            array_push($unidad_articulos,$unidadUpdated);
+        }
+
         return $unidad_articulos;
     }
 

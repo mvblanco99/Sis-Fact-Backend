@@ -18,4 +18,11 @@ class Articulo extends Model
         'descripcion',
         'categoria_id',
     ];
+
+
+    //Relacion de uno a muchos con unidad_articulo
+    public function unidad_articulo()
+    {
+        return $this->hasMany(UnidadArticulo::class);
+    }
 }

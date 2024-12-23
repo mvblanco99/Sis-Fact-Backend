@@ -47,6 +47,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Departamento::class);
     }
+
+    //Relacion de uno a muchos con facturas
+    public function factura()
+    {
+        return $this->hasMany(Factura::class);
+    }
 }
 
 

@@ -15,7 +15,7 @@ class Salida extends Model
      */
     protected $fillable = [
         'cantidad',
-        'destinatario',
+        'destinatario_id',
         'fecha',
         'motivo',
         'departamento_id',

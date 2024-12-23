@@ -19,4 +19,9 @@ class UnidadArticulo extends Model
         'factura_id',
         'codigo_barra'
     ];
+
+    public function articulo()
+    {
+        return $this->belongsTo(Articulo::class);
+    }   
 }
